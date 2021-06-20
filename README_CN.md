@@ -125,12 +125,16 @@ $ rustwasmc build
 
 也可以直接下载我们编译好的[rust_mobilenet_food_lib_bg.wasm](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/rust_mobilenet_food_lib_bg.wasm)文件。
 
-拷贝`pkg/rust_mobilenet_food_lib_bg.wasm`到`flow`目录。
+拷贝`pkg/rust_mobilenet_food_lib_bg.wasm`到`flow`目录
+
+```bash
+$ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
+```
 
 ### 5. 运行YoMo Streaming Orchestrator
 
 ```bash
-$ yomo serve -c ./zipper/workflow.yaml
+  $ yomo serve -c ./zipper/workflow.yaml
 ```
 
 ### 6. 运行 Streaming Serverless
@@ -153,18 +157,5 @@ $ go run ./source/main.go ./source/hot-dog.mp4
 
 **TODO** 执行结果截图
 
-### 参考
-
-#### 安装 Rust：
-
-安装 [rustc and cargo](https://www.rust-lang.org/tools/install)。
-
-```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-$ export PATH=$PATH:$HOME/.cargo/bin
-$ rustc --version
-```
-
-设置默认的 "rustup "版本为 "1.50.0"。
 
 `$ rustup default 1.50.0`
