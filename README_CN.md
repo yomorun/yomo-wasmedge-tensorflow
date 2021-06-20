@@ -18,7 +18,7 @@
 ### 1. Clone Repository
 
 ```bash
-$ git clone git@github.com:yomorun/yomo-wasmedge-image-recognition.git
+$ git clone git@github.com:yomorun/yomo-wasmedge-tensorflow.git
 ```
 
 ### 2. 安装YoMo CLI
