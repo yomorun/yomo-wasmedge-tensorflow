@@ -101,7 +101,7 @@ $ go get -u github.com/second-state/WasmEdge-go/wasmedge
 下载训练好的模型文件[mobilenet_v1_192res_1.0_seefood.pb](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb)，并放置在目录`rust_mobilenet_foods/src`中：
 
 ```bash
-$ wget 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb' -o ./rust_mobilenet_foods/src/mobilenet_v1_192res_1.0_seefood.pb
+$ wget 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb' -o rust_mobilenet_food/src/mobilenet_v1_192res_1.0_seefood.pb
 ```
 
 编译wasm文件，需要先安装[rustwasmc](https://github.com/second-state/rustwasmc)。
