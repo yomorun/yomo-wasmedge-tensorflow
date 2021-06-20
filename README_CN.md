@@ -30,9 +30,8 @@ $ go install github.com/yomorun/cli/yomo@latest
 执行下面的命令，确保yomo已经在环境变量中，有任何问题请参考[YoMo的详细文档](https://github.com/yomorun/yomo)
 
 ```bash
-$ yomo -v
-
-YoMo CLI version: v0.0.1
+$ yomo version
+YoMo CLI version: v0.0.4
 ```
 
 当然也可以直接下载可执行文件: [Linux](https://github.com/yomorun/yomo-app-image-recognition-example/releases/download/v0.1.0/yomo)
