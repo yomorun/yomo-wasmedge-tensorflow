@@ -104,7 +104,17 @@ $ go get -u github.com/second-state/WasmEdge-go/wasmedge
 $ wget 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb' -o rust_mobilenet_food/src/mobilenet_v1_192res_1.0_seefood.pb
 ```
 
-编译wasm文件，需要先安装[rustwasmc](https://github.com/second-state/rustwasmc)。
+编译wasm文件，需要先安装[rustwasmc](https://github.com/second-state/rustwasmc)，首先要确保使用`Rust 1.50.0`版本：
+
+```bash
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ export PATH=$PATH:$HOME/.cargo/bin
+$ rustc --version
+```
+
+设置默认的`rustup`版本为`1.50.0`: 
+
+`$ rustup default 1.50.0`
 
 ```bash
 $ curl https://raw.githubusercontent.com/second-state/rustwasmc/master/installer/init.sh -sSf | sh
