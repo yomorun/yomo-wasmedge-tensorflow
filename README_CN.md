@@ -157,5 +157,4 @@ $ go run ./source/main.go ./source/hot-dog.mp4
 
 ### 8. 查看结果
 
-**TODO** 执行结果截图
-
+![YoMo-WasmEdge](result.png)
