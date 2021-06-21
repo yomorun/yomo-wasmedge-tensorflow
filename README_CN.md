@@ -18,7 +18,7 @@
 ### 1. Clone Repository
 
 ```bash
-$ git clone git@github.com:yomorun/yomo-wasmedge-tensorflow.git
+$ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
 ```
 
 ### 2. 安装YoMo CLI
@@ -91,45 +91,47 @@ $ sudo apt-get install -y ffmpeg
 
 如何开发一个 serverless app？请参考官方例子：[Create your serverless app](https://github.com/yomorun/yomo#2-create-your-serverless-app)，这里为集成WasmEdge-tensorflow提供了一个例子 [app.go](https://github.com/yomorun/yomo-wasmedge-image-recognition/blob/main/flow/app.go)。简单描述步骤如下：
 
-安装wasmedge-go：
+- 拉取依赖包：
 
 ```bash
 $ cd flow
 $ go get -u github.com/second-state/WasmEdge-go/wasmedge
 ```
 
-下载训练好的模型文件[mobilenet_v1_192res_1.0_seefood.pb](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb)，并放置在目录`rust_mobilenet_foods/src`中：
+- 下载训练好的模型文件[mobilenet_v1_192res_1.0_seefood.pb](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb)，并放置在目录`rust_mobilenet_foods/src`中：
 
 ```bash
-$ wget 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb' -o rust_mobilenet_food/src/mobilenet_v1_192res_1.0_seefood.pb
+$ wget -P rust_mobilenet_food/src 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb'
 ```
 
-编译wasm文件，需要先安装[rustwasmc](https://github.com/second-state/rustwasmc)，首先要确保使用`Rust 1.50.0`版本：
+- 编译wasm文件：
 
-```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-$ export PATH=$PATH:$HOME/.cargo/bin
-$ rustc --version
-```
+  安装 [rustc and cargo](https://www.rust-lang.org/tools/install)
 
-设置默认的`rustup`版本为`1.50.0`: 
+  ```bash
+  $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  $ export PATH=$PATH:$HOME/.cargo/bin
+  $ rustc --version
+  ```
 
-`$ rustup default 1.50.0`
+  设置默认的`rustup`版本为`1.50.0`: `$ rustup default 1.50.0`
 
-```bash
-$ curl https://raw.githubusercontent.com/second-state/rustwasmc/master/installer/init.sh -sSf | sh
-$ cd rust_mobilenet_food
-$ rustwasmc build
-# The output WASM will be `pkg/rust_mobilenet_food_lib_bg.wasm`.
-```
+  安装[rustwasmc](https://github.com/second-state/rustwasmc)
+
+  ```bash
+  $ curl https://raw.githubusercontent.com/second-state/rustwasmc/master/installer/init.sh -sSf | sh
+  $ cd rust_mobilenet_food
+  $ rustwasmc build
+  # The output WASM will be `pkg/rust_mobilenet_food_lib_bg.wasm`.
+  ```
+
+  拷贝`pkg/rust_mobilenet_food_lib_bg.wasm`到`flow`目录：
+
+  ```bash
+  $ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
+  ```
 
 也可以直接下载我们编译好的[rust_mobilenet_food_lib_bg.wasm](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/rust_mobilenet_food_lib_bg.wasm)文件。
-
-拷贝`pkg/rust_mobilenet_food_lib_bg.wasm`到`flow`目录
-
-```bash
-$ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
-```
 
 ### 5. 运行YoMo Streaming Orchestrator
 
@@ -149,7 +151,7 @@ $ go run --tags tensorflow app.go
 下载视频文件: [hot-dog.mp4](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/hot-dog.mp4)，并保存到`source`目录，运行：
 
 ```bash
-$ wget 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/hot-dog.mp4' -o ./source/hot-dog.mp4
+$ wget -P source 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/hot-dog.mp4'
 $ go run ./source/main.go ./source/hot-dog.mp4
 ```
 
