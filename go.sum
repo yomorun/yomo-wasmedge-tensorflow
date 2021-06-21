@@ -183,6 +183,8 @@ github.com/yomorun/y3-codec-golang v1.6.9 h1:+1sTfxfwobWviNg5RMmLlcKbcIl5ZI1fiCm
 github.com/yomorun/y3-codec-golang v1.6.9/go.mod h1:R+y8hQ/AHZ1tDzWtmspVeX7omqVWFJ42gdlXIOp35rA=
 github.com/yomorun/yomo v1.3.3 h1:PJM7eAnMLd7Cc7wNVczec4xe7lsT8YNJ9+DMeqIToos=
 github.com/yomorun/yomo v1.3.3/go.mod h1:v0BzfYvC0TLeU1Tqp2H4kb2aHrvf0DtI+RRnJUfB/rE=
+github.com/yomorun/yomo v1.3.4 h1:iE+aUc67yE3xt8oV6uAXSA7kjHHf60FIrgAqJZ6IKQs=
+github.com/yomorun/yomo v1.3.4/go.mod h1:v0BzfYvC0TLeU1Tqp2H4kb2aHrvf0DtI+RRnJUfB/rE=
 go.opencensus.io v0.18.0/go.mod h1:vKdFvxhtzZ9onBp9VKHK8z/sRpBMnKAsufL7wlDrCOA=
 go.uber.org/goleak v1.1.10 h1:z+mqJhf6ss6BSfSM671tgKyZBFPTTJM+HLxnhPC3wu0=
 go.uber.org/goleak v1.1.10/go.mod h1:8a7PlsEVH3e/a/GLqe5IIrQx6GzcnRmZEufDUTk4A7A=
