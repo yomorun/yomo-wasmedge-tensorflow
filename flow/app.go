@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/sha1"
-	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
@@ -16,8 +15,6 @@ import (
 )
 
 var (
-	coder64 = base64.NewEncoding("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
-
 	vm      *wasmedge.VM
 	vmConf  *wasmedge.Configure
 	counter uint64
@@ -54,17 +51,12 @@ func Handler(rxStream rx.RxStream) rx.RxStream {
 
 // decode Decode and perform image recognition
 var decode = func(v []byte) (interface{}, error) {
-	// get the image
-	img64, err := y3.ToUTF8String(v)
+	// get image binary
+	p, _, _, err := y3.DecodePrimitivePacket(v)
 	if err != nil {
 		return nil, err
 	}
-
-	// restore the image
-	img, err := coder64.DecodeString(img64)
-	if err != nil {
-		return nil, err
-	}
+	img := p.ToBytes()
 
 	// recognize the image
 	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
@@ -76,7 +68,7 @@ var decode = func(v []byte) (interface{}, error) {
 
 	// print logs
 	hash := genSha1(img)
-	log.Printf("✅ received image-%d hash %v, img64_size=%d \n", atomic.AddUint64(&counter, 1), hash, len(img64))
+	log.Printf("✅ received image-%d hash %v, img_size=%d \n", atomic.AddUint64(&counter, 1), hash, len(img))
 
 	return hash, nil
 }

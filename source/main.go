@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"crypto/sha1"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -21,10 +20,7 @@ import (
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
 
-var (
-	codec   = y3.NewCodec(0x10)
-	coder64 = base64.NewEncoding("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
-)
+const ImageDataKey = 0x10
 
 func main() {
 	fmt.Println("Go: Args:", os.Args)
@@ -43,15 +39,19 @@ func main() {
 
 func loadVideoAndSendData(stream io.Writer, filePath string) {
 	send := func(id int, img []byte) {
-		img64 := coder64.EncodeToString(img)
-		sendingBuf, _ := codec.Marshal(img64)
+		obj := y3.NewPrimitivePacketEncoder(ImageDataKey)
+		obj.SetBytes(img)
+
+		wrapper := y3.NewNodePacketEncoder(0x01)
+		wrapper.AddPrimitivePacket(obj)
+		sendingBuf := wrapper.Encode()
 
 		// send data via QUIC stream.
 		_, err := stream.Write(sendingBuf)
 		if err != nil {
 			log.Printf("❌ Send image-%v of %s to yomo-zipper failure with err: %v", id, filePath, err)
 		} else {
-			log.Printf("✅ Send image-frame-%v of %s to yomo-zipper, hash=%s, img64_size=%v", id, filePath, genSha1(img), len(img64))
+			log.Printf("✅ Send image-frame-%v of %s to yomo-zipper, hash=%s, img_size=%v", id, filePath, genSha1(img), len(img))
 		}
 		time.Sleep(1 * time.Millisecond)
 	}
