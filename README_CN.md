@@ -159,4 +159,3 @@ $ go run ./source/main.go ./source/hot-dog.mp4
 
 **TODO** 执行结果截图
 
-`$ rustup default 1.50.0`
