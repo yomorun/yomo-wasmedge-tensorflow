@@ -34,7 +34,7 @@ $ yomo version
 YoMo CLI version: v0.0.4
 ```
 
-当然也可以直接下载可执行文件: [Linux](https://github.com/yomorun/yomo-app-image-recognition-example/releases/download/v0.1.0/yomo)
+当然也可以直接下载可执行文件: [Linux](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/yomo)
 
 ### 3. 安装相关依赖
 
@@ -93,16 +93,16 @@ $ sudo apt-get install -y ffmpeg
 
 - 拉取依赖包：
 
-```bash
-$ cd flow
-$ go get -u github.com/second-state/WasmEdge-go/wasmedge
-```
+  ```bash
+  $ cd flow
+  $ go get -u github.com/second-state/WasmEdge-go/wasmedge
+  ```
 
-- 下载训练好的模型文件[mobilenet_v1_192res_1.0_seefood.pb](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb)，并放置在目录`rust_mobilenet_foods/src`中：
+- 下载训练好的模型文件[mobilenet_v1_192res_1.0_seefood.pb](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb)，并放置在目录`rust_mobilenet_foods/src`中：
 
-```bash
-$ wget -P rust_mobilenet_food/src 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb'
-```
+  ```bash
+  $ wget -P rust_mobilenet_food/src 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/mobilenet_v1_192res_1.0_seefood.pb'
+  ```
 
 - 编译wasm文件：
 
@@ -131,7 +131,7 @@ $ wget -P rust_mobilenet_food/src 'https://github.com/yomorun/yomo-wasmedge-imag
   $ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
   ```
 
-也可以直接下载我们编译好的[rust_mobilenet_food_lib_bg.wasm](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/rust_mobilenet_food_lib_bg.wasm)文件。
+  也可以直接下载我们编译好的[rust_mobilenet_food_lib_bg.wasm](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/rust_mobilenet_food_lib_bg.wasm)文件。
 
 ### 5. 运行YoMo Streaming Orchestrator
 
@@ -151,13 +151,12 @@ $ go run --tags tensorflow app.go
 下载视频文件: [hot-dog.mp4](https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/hot-dog.mp4)，并保存到`source`目录，运行：
 
 ```bash
-$ wget -P source 'https://github.com/yomorun/yomo-wasmedge-image-recognition/releases/download/v0.1.0/hot-dog.mp4'
+$ wget -P source 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/hot-dog.mp4'
 $ go run ./source/main.go ./source/hot-dog.mp4
 ```
 
 ### 8. 查看结果
 
 **TODO** 执行结果截图
-
 
 `$ rustup default 1.50.0`
