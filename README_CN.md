@@ -124,7 +124,7 @@ $ export PATH=$PATH:$HOME/.cargo/bin
 $ rustc --version
 ```
 
-设置默认的`rustup`版本为`1.50.0`: `$ rustup default 1.50.0`
+设置默认的`rust`版本为`1.50.0`: `$ rustup default 1.50.0`
 
 安装 [rustwasmc](https://github.com/second-state/rustwasmc)
 
