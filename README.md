@@ -2,20 +2,20 @@
 
 [![Youtube: YoMo x WasmEdge](youtube.png)](https://youtu.be/E0ltsn6cLIU)
 
-This Show Case shows how to streaming parse a video stream in real-time with WebAssembly technology and invoke a Tensorflow model on each frame to determine if food is present in that frame, all by integrate [WasmEdge](https://github.com/WasmEdge/WasmEdge) into [YoMo](https://github.com/yomorun/yomo) serverless.
+This project demonstrates how to process a video stream in real-time using WebAssembly and apply a TensorFlow model to each frame of the video in order to determine if food is present in that frame, all by integrating [WasmEdge](https://github.com/WasmEdge/WasmEdge) into [YoMo](https://github.com/yomorun/yomo) serverless.
 
-All Open-Source projects：
+Open-source projects involved:
 
-- Serverless Stream Processing framework [YoMo](https://github.com/yomorun/yomo)
-- Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly，interop TensorflowLite model
-- Deep learning model can be found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1), download `aiy/vision/classifier/food_V1` created by Google
+- Serverless stream processing framework [YoMo](https://github.com/yomorun/yomo)
+- Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly，interop TensorFlow Lite model
+- A deep learning model found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1); make sure to download `TFLite (aiy/vision/classifier/food_V1)`, which is authored by Google
 
-Value:
+Values:
 
-- Low-latency：Deep learning in computer vision can be processed on far edge data centers
-- Security：WasmEdge isolate code in sandbox
-- Low Overhead：Compared to popular application containers such as Docker, WebAssembly provides a higher level of abstraction to launch on-the-fly
-- Edge Computing：By introduce high-performance, lightweight Wasm VMs, better for resource-constrained edge devices
+- Low-latency: Deep learning in computer vision can be processed on far edge data centers
+- Security: WasmEdge isolates code in sandbox
+- Low Overhead: As compared to popular container software such as Docker, WebAssembly provides a higher level of abstraction to launch on-the-fly
+- Edge Computing: By introducing high-performance, lightweight Wasm VMs, better for resource-constrained edge devices
 
 ## Steps to run
 
