@@ -102,11 +102,13 @@ func initVM() {
 		[]string{},      /// The preopens will be empty
 	)
 
-	/// Register WasmEdge-tensorflow
+	/// Register WasmEdge-tensorflow and WasmEdge-image
 	var tfobj = wasmedge.NewTensorflowImportObject()
 	var tfliteobj = wasmedge.NewTensorflowLiteImportObject()
 	vm.RegisterImport(tfobj)
 	vm.RegisterImport(tfliteobj)
+	var imgobj = wasmedge.NewImageImportObject()
+	vm.RegisterImport(imgobj)
 
 	/// Instantiate wasm
 	vm.LoadWasmFile("rust_mobilenet_food_lib_bg.wasm")
