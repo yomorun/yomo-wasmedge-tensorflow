@@ -68,7 +68,7 @@ $ sudo ln -sf libtensorflow_framework.so.2 /usr/local/lib/libtensorflow_framewor
 $ sudo ldconfig
 ```
 
-安装WasmEdge-tensorflow：
+安装 WasmEdge-tensorflow：
 
 ```bash
 $ wget https://github.com/second-state/WasmEdge-tensorflow/releases/download/0.8.0/WasmEdge-tensorflow-0.8.0-manylinux2014_x86_64.tar.gz
@@ -78,15 +78,24 @@ $ sudo tar -C /usr/local/ -xzf WasmEdge-tensorflowlite-0.8.0-manylinux2014_x86_6
 $ sudo ldconfig
 ```
 
+安装 WasmEdge-image：
+
+```
+$ wget https://github.com/second-state/WasmEdge-image/releases/download/0.8.0/WasmEdge-image-0.8.0-manylinux2014_x86_64.tar.gz
+$ sudo tar -C /usr/local/ -xzf WasmEdge-image-0.8.0-manylinux2014_x86_64.tar.gz
+$ sudo ldconfig
+
+```
+
 详细的安装，请参考[官方文档](https://github.com/second-state/WasmEdge-go#wasmedge-tensorflow-extension)，目前该例子仅支持Linux下运行。
 
-#### 安装ffmpeg
+#### 安装依赖组件
 
-YoMo的视频处理依赖 [ffmpeg](https://www.ffmpeg.org/) 组件，安装方式如下:
+安装视频和图片处理依赖组件：
 
 ```bash
 $ sudo apt-get update
-$ sudo apt-get install -y ffmpeg
+$ sudo apt-get install -y ffmpeg libjpeg-dev libpng-dev
 ```
 
 ### 4. 编写 Streaming Serverless
@@ -142,7 +151,7 @@ $ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
 
 ```bash
 $ cd flow
-$ go run --tags tensorflow app.go
+$ go run --tags "tensorflow image" app.go
 ```
 
 ### 7. 模拟视频流并查看运行结果
