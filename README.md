@@ -1,6 +1,6 @@
-[![Youtube: YoMo x WasmEdge](youtube.png)](https://youtu.be/E0ltsn6cLIU)
-
 # Streaming Image Recognition by WebAssembly
+
+[![Youtube: YoMo x WasmEdge](youtube.png)](https://youtu.be/E0ltsn6cLIU)
 
 This Show Case shows how to streaming parse a video stream in real-time with WebAssembly technology and invoke a Tensorflow model on each frame to determine if food is present in that frame, all by integrate [WasmEdge](https://github.com/WasmEdge/WasmEdge) into [YoMo](https://github.com/yomorun/yomo) serverless.
 
