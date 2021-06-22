@@ -1,5 +1,3 @@
-Watch on youtube:
-
 [![Youtube: YoMo x WasmEdge](youtube.png)](https://youtu.be/E0ltsn6cLIU)
 
 # Streaming Image Recognition by WebAssembly
