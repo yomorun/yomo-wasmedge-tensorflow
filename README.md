@@ -2,12 +2,12 @@
 
 [![Youtube: YoMo x WasmEdge](youtube.png)](https://youtu.be/E0ltsn6cLIU)
 
-This project demonstrates how to process a video stream in real-time using WebAssembly and apply a TensorFlow model to each frame of the video in order to determine if food is present in that frame, all by integrating [WasmEdge](https://github.com/WasmEdge/WasmEdge) into [YoMo](https://github.com/yomorun/yomo) serverless.
+This project demonstrates how to process a video stream in real-time using WebAssembly and apply a pre-trained [food classification model](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1) to each frame of the video in order to determine if food is present in that frame, all by integrating [WasmEdge](https://github.com/WasmEdge/WasmEdge) into [YoMo](https://github.com/yomorun/yomo) serverless.
 
-Open-source projects involved:
+Open-source projects that we used:
 
 - Serverless stream processing framework [YoMo](https://github.com/yomorun/yomo)
-- Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly，interop TensorFlow Lite model
+- Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly, interop TensorFlow Lite model
 - A deep learning model found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1); make sure to download `TFLite (aiy/vision/classifier/food_V1)`, which is authored by Google
 
 Values:
@@ -19,7 +19,7 @@ Values:
 
 ## Steps to run
 
-### 1. Clone Repository
+### 1. Clone This Repository
 
 ```bash
 $ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
@@ -33,11 +33,11 @@ $ yomo version
 YoMo CLI version: v0.0.5
 ```
 
-Or, download prebuild binary [yomo-v0.0.5-x86_64-linux.tgz](https://github.com/yomorun/cli/releases/tag/v0.0.5)
+Or, you can download the pre-built binary tarball [yomo-v0.0.5-x86_64-linux.tgz](https://github.com/yomorun/cli/releases/tag/v0.0.5).
 
-details about `YoMo CLI` installation can be found [here](https://github.com/yomorun/yomo)
+Details about `YoMo CLI` installation can be found [here](https://github.com/yomorun/yomo).
 
-### 3. Install WasmEdge dependencies
+### 3. Install WasmEdge Dependencies
 
 #### Install WasmEdge
 
@@ -49,7 +49,7 @@ $ sudo cp WasmEdge-0.8.0-Linux/lib64/libwasmedge_c.so /usr/local/lib
 $ sudo ldconfig
 ```
 
-Or, [install from source code](https://github.com/second-state/WasmEdge-go#option-1-build-from-the-source)。
+Or, you can [build from the source](https://github.com/second-state/WasmEdge-go#option-1-build-from-the-source).
 
 #### Install WasmEdge-tensorflow
 
@@ -67,7 +67,7 @@ $ sudo ln -sf libtensorflow_framework.so.2 /usr/local/lib/libtensorflow_framewor
 $ sudo ldconfig
 ```
 
-Install WasmEdge-tensorflow：
+Install WasmEdge-tensorflow:
 
 ```bash
 $ wget https://github.com/second-state/WasmEdge-tensorflow/releases/download/0.8.0/WasmEdge-tensorflow-0.8.0-manylinux2014_x86_64.tar.gz
@@ -77,7 +77,7 @@ $ sudo tar -C /usr/local/ -xzf WasmEdge-tensorflowlite-0.8.0-manylinux2014_x86_6
 $ sudo ldconfig
 ```
 
-Install WasmEdge-image：
+Install WasmEdge-image:
 
 ```
 $ wget https://github.com/second-state/WasmEdge-image/releases/download/0.8.0/WasmEdge-image-0.8.0-manylinux2014_x86_64.tar.gz
@@ -86,7 +86,7 @@ $ sudo ldconfig
 
 ```
 
-Details about installation, please refer to [Official Install Documentation](https://github.com/second-state/WasmEdge-go#wasmedge-tensorflow-extension)，currently, this show case only support Linux platform.
+If you have any questions about installation, please refer to [the official documentation](https://github.com/second-state/WasmEdge-go#wasmedge-tensorflow-extension). Currently, this project works on Linux machines only.
 
 #### Install video and image processing dependencies
 
