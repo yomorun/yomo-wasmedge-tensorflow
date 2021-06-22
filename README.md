@@ -8,14 +8,14 @@ Open-source projects that we used:
 
 - Serverless stream processing framework [YoMo](https://github.com/yomorun/yomo)
 - Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly, interop TensorFlow Lite model
-- A deep learning model found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1); make sure to download `TFLite (aiy/vision/classifier/food_V1)`, which is authored by Google
+- A deep learning model found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1); make sure to download `TFLite (aiy/vision/classifier/food_V1)`, which was created by Google
 
-Values:
+Advantages:
 
-- Low-latency: Deep learning in computer vision can be processed on far edge data centers
-- Security: WasmEdge isolates code in sandbox
-- Low Overhead: As compared to popular container software such as Docker, WebAssembly provides a higher level of abstraction to launch on-the-fly
-- Edge Computing: By introducing high-performance, lightweight Wasm VMs, better for resource-constrained edge devices
+- Low-latency: Streaming data processing applications can now be done in far edge data centers thanks to YoMo's highly efficient network services
+- Security: WasmEdge runs the data processing function in a WebAssembly sandbox for isolation, safety, and hot deployment
+- High Performance: Compared with popular containers, such as Docker, WasmEdge can be up to 100x faster at startup and have a much smaller footprint
+- Edge Devices: As WasmEdge consumes much less resources than Docker, it is now possible to run data processing applications on edge devices
 
 ## Steps to run
 
