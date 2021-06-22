@@ -17,3 +17,5 @@
 *.mp4
 *.wasm
 *.pb
+*.tflite
+target

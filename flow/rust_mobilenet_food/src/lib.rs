@@ -18,12 +18,12 @@ pub fn infer(image_data: &[u8]) -> String {
         flat_img.push(rgb[2] as f32 / 255.);
     }
 
-    let model_data: &[u8] = include_bytes!("mobilenet_v1_192res_1.0_seefood.pb");
+    let model_data: &[u8] = include_bytes!("lite-model_aiy_vision_classifier_food_V1_1.tflite");
     let labels = include_str!("aiy_food_V1_labelmap.txt");
 
     let mut session = wasmedge_tensorflow_interface::Session::new(
         model_data,
-        wasmedge_tensorflow_interface::ModelType::TensorFlow,
+        wasmedge_tensorflow_interface::ModelType::TensorFlowLite,
     );
     session
         .add_input("input", &flat_img, &[1, 192, 192, 3])
