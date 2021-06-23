@@ -10,12 +10,12 @@ Open-source projects that we used:
 - Integrate with [WasmEdge](https://github.com/WasmEdge/WasmEdge) to introduce WebAssembly, interop TensorFlow Lite model
 - A deep learning model found on [TensorFlow Hub](https://tfhub.dev/google/lite-model/aiy/vision/classifier/food_V1/1); make sure to download `TFLite (aiy/vision/classifier/food_V1)`, which was created by Google
 
-Advantages:
+**Advantages:**
 
-- Low-latency: Streaming data processing applications can now be done in far edge data centers thanks to YoMo's highly efficient network services
-- Security: WasmEdge runs the data processing function in a WebAssembly sandbox for isolation, safety, and hot deployment
-- High Performance: Compared with popular containers, such as Docker, WasmEdge can be up to 100x faster at startup and have a much smaller footprint
-- Edge Devices: As WasmEdge consumes much less resources than Docker, it is now possible to run data processing applications on edge devices
+- ⚡️ **Low-latency**: Streaming data processing applications can now be done in far edge data centers thanks to YoMo's highly efficient network services
+- 🔐 **Security**: WasmEdge runs the data processing function in a WebAssembly sandbox for isolation, safety, and hot deployment
+- 🚀 **High Performance**: Compared with popular containers, such as Docker, WasmEdge can be up to 100x faster at startup and have a much smaller footprint
+- 🎯 **Edge Devices**: As WasmEdge consumes much less resources than Docker, it is now possible to run data processing applications on edge devices
 
 ## Steps to run
 
