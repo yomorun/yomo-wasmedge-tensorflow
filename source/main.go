@@ -25,7 +25,7 @@ func main() {
 	filePath := os.Args[1]
 
 	// connect to yomo-zipper.
-	source := yomo.NewSource("image-recognition-source", yomo.WithZipperAddr("localhost:9000"))
+	source := yomo.NewSource("image-recognition-source", yomo.WithZipperAddr("localhost:9900"))
 	defer source.Close()
 
 	err := source.Connect()

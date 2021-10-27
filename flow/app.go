@@ -26,7 +26,7 @@ func main() {
 	defer vmConf.Delete()
 
 	// Connect to Zipper service
-	sfn := yomo.NewStreamFunction("image-recognition", yomo.WithZipperAddr("localhost:9000"))
+	sfn := yomo.NewStreamFunction("image-recognition", yomo.WithZipperAddr("localhost:9900"))
 	defer sfn.Close()
 
 	// set only monitoring data
@@ -41,12 +41,14 @@ func main() {
 		log.Print("❌ Connect to zipper failure: ", err)
 		os.Exit(1)
 	}
+
+	select {}
 }
 
 // Handler process the data in the stream
-func Handler(data []byte) (byte, []byte) {
+func Handler(img []byte) (byte, []byte) {
 	// recognize the image
-	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, data)
+	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
 	if err == nil {
 		fmt.Println("GO: Run bindgen -- infer:", string(res.([]byte)))
 	} else {
