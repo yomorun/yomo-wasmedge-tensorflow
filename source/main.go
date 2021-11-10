@@ -13,9 +13,7 @@ import (
 
 	"github.com/disintegration/imaging"
 
-	"github.com/yomorun/yomo/pkg/client"
-
-	"github.com/yomorun/y3-codec-golang"
+	"github.com/yomorun/yomo"
 
 	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
@@ -27,27 +25,22 @@ func main() {
 	filePath := os.Args[1]
 
 	// connect to yomo-zipper.
-	cli, err := client.NewSource("image-recognition-source").Connect("localhost", 9000)
+	source := yomo.NewSource("image-recognition-source", yomo.WithZipperAddr("localhost:9900"))
+	defer source.Close()
+
+	err := source.Connect()
 	if err != nil {
 		log.Printf("❌ Emit the data to yomo-zipper failure with err: %v", err)
 		return
 	}
-	defer cli.Close()
 
-	loadVideoAndSendData(cli, filePath)
+	source.SetDataTag(ImageDataKey)
+	loadVideoAndSendData(source, filePath)
 }
 
-func loadVideoAndSendData(stream io.Writer, filePath string) {
+func loadVideoAndSendData(source yomo.Source, filePath string) {
 	send := func(id int, img []byte) {
-		obj := y3.NewPrimitivePacketEncoder(ImageDataKey)
-		obj.SetBytes(img)
-
-		wrapper := y3.NewNodePacketEncoder(0x01)
-		wrapper.AddPrimitivePacket(obj)
-		sendingBuf := wrapper.Encode()
-
-		// send data via QUIC stream.
-		_, err := stream.Write(sendingBuf)
+		_, err := source.Write(img)
 		if err != nil {
 			log.Printf("❌ Send image-%v of %s to yomo-zipper failure with err: %v", id, filePath, err)
 		} else {
