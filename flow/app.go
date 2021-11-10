@@ -12,19 +12,12 @@ import (
 )
 
 var (
-	vm      *wasmedge.VM
-	vmConf  *wasmedge.Configure
 	counter uint64
 )
 
 const ImageDataKey = 0x10
 
 func main() {
-	// Initialize WasmEdge's VM
-	initVM()
-	defer vm.Delete()
-	defer vmConf.Delete()
-
 	// Connect to Zipper service
 	sfn := yomo.NewStreamFunction("image-recognition", yomo.WithZipperAddr("localhost:9900"))
 	defer sfn.Close()
@@ -47,6 +40,11 @@ func main() {
 
 // Handler process the data in the stream
 func Handler(img []byte) (byte, []byte) {
+	// Initialize WasmEdge's VM
+	vmConf, vm := initVM()
+	defer vm.Delete()
+	defer vmConf.Delete()
+
 	// recognize the image
 	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
 	if err == nil {
@@ -70,17 +68,17 @@ func genSha1(buf []byte) string {
 }
 
 // initVM initialize WasmEdge's VM
-func initVM() {
+func initVM() (*wasmedge.Configure, *wasmedge.VM) {
 	wasmedge.SetLogErrorLevel()
 	/// Set Tensorflow not to print debug info
 	os.Setenv("TF_CPP_MIN_LOG_LEVEL", "3")
 	os.Setenv("TF_CPP_MIN_VLOG_LEVEL", "3")
 
 	/// Create configure
-	vmConf = wasmedge.NewConfigure(wasmedge.WASI)
+	vmConf := wasmedge.NewConfigure(wasmedge.WASI)
 
 	/// Create VM with configure
-	vm = wasmedge.NewVMWithConfig(vmConf)
+	vm := wasmedge.NewVMWithConfig(vmConf)
 
 	/// Init WASI
 	var wasi = vm.GetImportObject(wasmedge.WASI)
@@ -100,7 +98,9 @@ func initVM() {
 	vm.RegisterImport(imgobj)
 
 	/// Instantiate wasm
-	vm.LoadWasmFile("rust_mobilenet_food_lib_bg.wasm")
+	vm.LoadWasmFile("rust_mobilenet_food_lib_bg.so")
 	vm.Validate()
 	vm.Instantiate()
+
+	return vmConf, vm
 }
