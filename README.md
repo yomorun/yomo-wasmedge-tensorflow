@@ -30,63 +30,22 @@ $ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
 ```bash
 $ go install github.com/yomorun/cli/yomo@latest
 $ yomo version
-YoMo CLI version: v0.0.5
+YoMo CLI version: v0.1.3
 ```
 
-Or, you can download the pre-built binary tarball [yomo-v0.0.5-x86_64-linux.tgz](https://github.com/yomorun/cli/releases/tag/v0.0.5).
+Or, you can download the pre-built binary tarball [yomo-v0.1.3-x86_64-linux.tar.gz](https://github.com/yomorun/cli/releases/tag/v0.1.3).
 
 Details about `YoMo CLI` installation can be found [here](https://github.com/yomorun/yomo).
 
 ### 3. Install WasmEdge Dependencies
 
-#### Install WasmEdge
+#### Install WasmEdge with its [Tensorflow and image processing extensions](https://www.secondstate.io/articles/wasi-tensorflow/)
 
 ```bash
-$ wget https://github.com/WasmEdge/WasmEdge/releases/download/0.8.0/WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
-$ tar -xzf WasmEdge-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo cp WasmEdge-0.8.0-Linux/include/wasmedge.h /usr/local/include
-$ sudo cp WasmEdge-0.8.0-Linux/lib64/libwasmedge_c.so /usr/local/lib
-$ sudo ldconfig
+wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -p /usr/local
 ```
 
-Or, you can [build from the source](https://github.com/second-state/WasmEdge-go#option-1-build-from-the-source).
-
-#### Install WasmEdge-tensorflow
-
-Install tensorflow dependencies for `manylinux2014` platform
-
-```bash
-$ wget https://github.com/second-state/WasmEdge-tensorflow-deps/releases/download/0.8.0/WasmEdge-tensorflow-deps-TF-0.8.0-manylinux2014_x86_64.tar.gz
-$ wget https://github.com/second-state/WasmEdge-tensorflow-deps/releases/download/0.8.0/WasmEdge-tensorflow-deps-TFLite-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo tar -C /usr/local/lib -xzf WasmEdge-tensorflow-deps-TF-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo tar -C /usr/local/lib -xzf WasmEdge-tensorflow-deps-TFLite-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo ln -sf libtensorflow.so.2.4.0 /usr/local/lib/libtensorflow.so.2
-$ sudo ln -sf libtensorflow.so.2 /usr/local/lib/libtensorflow.so
-$ sudo ln -sf libtensorflow_framework.so.2.4.0 /usr/local/lib/libtensorflow_framework.so.2
-$ sudo ln -sf libtensorflow_framework.so.2 /usr/local/lib/libtensorflow_framework.so
-$ sudo ldconfig
-```
-
-Install WasmEdge-tensorflow:
-
-```bash
-$ wget https://github.com/second-state/WasmEdge-tensorflow/releases/download/0.8.0/WasmEdge-tensorflow-0.8.0-manylinux2014_x86_64.tar.gz
-$ wget https://github.com/second-state/WasmEdge-tensorflow/releases/download/0.8.0/WasmEdge-tensorflowlite-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo tar -C /usr/local/ -xzf WasmEdge-tensorflow-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo tar -C /usr/local/ -xzf WasmEdge-tensorflowlite-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo ldconfig
-```
-
-Install WasmEdge-image:
-
-```
-$ wget https://github.com/second-state/WasmEdge-image/releases/download/0.8.0/WasmEdge-image-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo tar -C /usr/local/ -xzf WasmEdge-image-0.8.0-manylinux2014_x86_64.tar.gz
-$ sudo ldconfig
-
-```
-
-If you have any questions about installation, please refer to [the official documentation](https://github.com/second-state/WasmEdge-go#wasmedge-tensorflow-extension). Currently, this project works on Linux machines only.
+If you have any questions about installation, please refer to [the official documentation](https://github.com/WasmEdge/WasmEdge/blob/master/docs/install.md). Currently, this project works on Linux machines only.
 
 #### Install video and image processing dependencies
 
@@ -106,36 +65,10 @@ $ cd flow
 $ go get -u github.com/second-state/WasmEdge-go/wasmedge
 ```
 
-Download pre-trained TensorflowLitee model: [lite-model_aiy_vision_classifier_food_V1_1.tflite](https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite), store to `rust_mobilenet_foods/src`:
+Download pre-trained TensorflowLitee model: [rust_mobilenet_food_lib_bg.so](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/rust_mobilenet_food_lib_bg.so), store to `flow` directory:
 
 ```bash
-$ wget 'https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite' -O ./rust_mobilenet_food/src/lite-model_aiy_vision_classifier_food_V1_1.tflite
-```
-Compile to `wasm` file:
-
-Install [rustc and cargo](https://www.rust-lang.org/tools/install)
-
-```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-$ export PATH=$PATH:$HOME/.cargo/bin
-$ rustc --version
-```
-
-Set default `rust` version to `1.50.0`: `$ rustup default 1.50.0`
-
-Install [rustwasmc](https://github.com/second-state/rustwasmc)
-
-```bash
-$ curl https://raw.githubusercontent.com/second-state/rustwasmc/master/installer/init.sh -sSf | sh
-$ cd rust_mobilenet_food
-$ rustwasmc build
-# The output WASM will be `pkg/rust_mobilenet_food_lib_bg.wasm`.
-```
-
-Copy `pkg/rust_mobilenet_food_lib_bg.wasm` to `flow` directory:
-
-```bash
-$ cp pkg/rust_mobilenet_food_lib_bg.wasm ../.
+$ wget -P flow 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/rust_mobilenet_food_lib_bg.so'
 ```
 
 ### 5. Run YoMo Orchestrator Server
@@ -153,10 +86,10 @@ $ go run --tags "tensorflow image" app.go
 
 ### 7. Demonstrate video stream
 
-Download [this demo vide: hot-dog.mp4](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/hot-dog.mp4), store to `source` directory, then run：
+Download [this demo video: hot-dog.mp4](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/hot-dog.mp4), store to `source` directory, then run：
 
 ```bash
-$ wget -P source 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.1.0/hot-dog.mp4'
+$ wget -P source 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/hot-dog.mp4'
 $ go run ./source/main.go ./source/hot-dog.mp4
 ```
 
