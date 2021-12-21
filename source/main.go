@@ -116,7 +116,7 @@ func (v *VideoImage) GetFrameCount(inFileName string) (int, error) {
 	items := m["streams"].([]interface{})
 	for _, item := range items {
 		v := item.(map[string]interface{})
-		if v["profile"] == "Main" {
+		if v["profile"] == "Main" || v["profile"]== "High" {
 			strInt = v["nb_frames"].(string)
 			break
 		}
