@@ -42,8 +42,8 @@ func main() {
 func Handler(img []byte) (byte, []byte) {
 	// Initialize WasmEdge's VM
 	vmConf, vm := initVM()
-	defer vm.Delete()
-	defer vmConf.Delete()
+	defer vm.Release()
+	defer vmConf.Release()
 
 	// recognize the image
 	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
@@ -86,7 +86,6 @@ func initVM() (*wasmedge.Configure, *wasmedge.VM) {
 		os.Args[1:],     /// The args
 		os.Environ(),    /// The envs
 		[]string{".:."}, /// The mapping directories
-		[]string{},      /// The preopens will be empty
 	)
 
 	/// Register WasmEdge-tensorflow and WasmEdge-image
