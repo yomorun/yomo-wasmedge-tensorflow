@@ -8,6 +8,7 @@ import (
 	"sync/atomic"
 
 	"github.com/second-state/WasmEdge-go/wasmedge"
+	bindgen "github.com/second-state/wasmedge-bindgen/host/go"
 	"github.com/yomorun/yomo"
 )
 
@@ -42,13 +43,15 @@ func main() {
 func Handler(img []byte) (byte, []byte) {
 	// Initialize WasmEdge's VM
 	vmConf, vm := initVM()
+	bg := bindgen.Instantiate(vm)
+	defer bg.Release()
 	defer vm.Release()
 	defer vmConf.Release()
 
 	// recognize the image
-	res, err := vm.ExecuteBindgen("infer", wasmedge.Bindgen_return_array, img)
+	res, err := bg.Execute("infer", img)
 	if err == nil {
-		fmt.Println("GO: Run bindgen -- infer:", string(res.([]byte)))
+		fmt.Println("GO: Run bindgen -- infer:", string(res))
 	} else {
 		fmt.Println("GO: Run bindgen -- infer FAILED")
 	}
@@ -97,9 +100,8 @@ func initVM() (*wasmedge.Configure, *wasmedge.VM) {
 	vm.RegisterImport(imgobj)
 
 	/// Instantiate wasm
-	vm.LoadWasmFile("rust_mobilenet_food_lib_bg.so")
+	vm.LoadWasmFile("rust_mobilenet_food_lib.so")
 	vm.Validate()
-	vm.Instantiate()
 
 	return vmConf, vm
 }

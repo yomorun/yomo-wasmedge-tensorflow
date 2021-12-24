@@ -1,15 +1,16 @@
 use std::time::Instant;
-use wasm_bindgen::prelude::*;
 use wasmedge_tensorflow_interface;
+use wasmedge_bindgen::*;
+use wasmedge_bindgen_macro::*;
 
-#[wasm_bindgen]
-pub fn infer(image_data: &[u8]) -> String {
+#[wasmedge_bindgen]
+pub fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
     let start = Instant::now();
 
     let model_data: &[u8] = include_bytes!("lite-model_aiy_vision_classifier_food_V1_1.tflite");
     let labels = include_str!("aiy_food_V1_labelmap.txt");
 
-    let flat_img = wasmedge_tensorflow_interface::load_jpg_image_to_rgb8(image_data, 192, 192);
+    let flat_img = wasmedge_tensorflow_interface::load_jpg_image_to_rgb8(&image_data[..], 192, 192);
     println!("RUST: Loaded image in ... {:?}", start.elapsed());
 
     let mut session = wasmedge_tensorflow_interface::Session::new(&model_data, wasmedge_tensorflow_interface::ModelType::TensorFlowLite);
@@ -58,5 +59,5 @@ pub fn infer(image_data: &[u8]) -> String {
         "RUST: Finished post-processing in ... {:?}",
         start.elapsed()
     );
-    return ret_str;
+    return Ok(ret_str.as_bytes().to_vec());
 }

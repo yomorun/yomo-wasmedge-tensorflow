@@ -140,6 +140,8 @@ github.com/reactivex/rxgo/v2 v2.5.0/go.mod h1:bs4fVZxcb5ZckLIOeIeVH942yunJLWDABW
 github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/second-state/WasmEdge-go v0.9.0 h1:CapdsNNP5HG8nIeX8qmRteie8SZC/+BkmNXq+IoQlKE=
 github.com/second-state/WasmEdge-go v0.9.0/go.mod h1:Q3h79fwQs7GUSOm3ZzHXK+j4cKmCFP3SKpGfFNDtqD8=
+github.com/second-state/wasmedge-bindgen v0.1.10 h1:FK49o7+PH9xONOTbC3mYysAQ9l65Kw0sjjygdjKGFDU=
+github.com/second-state/wasmedge-bindgen v0.1.10/go.mod h1:I6j1gAv4jDVvmNF0pKJ9+GFSfxJniL1l5Uzsu9z/3Xk=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/shurcooL/component v0.0.0-20170202220835-f88ec8f54cc4/go.mod h1:XhFIlyj5a1fBNx5aJTbKoIq0mNaPvOagO+HjB3EtxrY=
 github.com/shurcooL/events v0.0.0-20181021180414-410e4ca65f48/go.mod h1:5u70Mqkb5O5cxEA8nxTsgrgLehJeAw6Oc4Ab1c/P1HM=
