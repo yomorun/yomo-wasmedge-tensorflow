@@ -51,7 +51,7 @@ func Handler(img []byte) (byte, []byte) {
 	// recognize the image
 	res, err := bg.Execute("infer", img)
 	if err == nil {
-		fmt.Println("GO: Run bindgen -- infer:", string(res))
+		fmt.Println("GO: Run bindgen -- infer:", string(res[0].([]byte)))
 	} else {
 		fmt.Println("GO: Run bindgen -- infer FAILED")
 	}
