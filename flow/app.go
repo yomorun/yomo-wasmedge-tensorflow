@@ -20,11 +20,12 @@ const ImageDataKey = 0x10
 
 func main() {
 	// Connect to Zipper service
-	sfn := yomo.NewStreamFunction("image-recognition", yomo.WithZipperAddr("localhost:9900"))
+	sfn := yomo.NewStreamFunction(
+		"image-recognition",
+		yomo.WithZipperAddr("localhost:9900"),
+		yomo.WithObserveDataTags(ImageDataKey),
+	)
 	defer sfn.Close()
-
-	// set only monitoring data
-	sfn.SetObserveDataID(ImageDataKey)
 
 	// set handler
 	sfn.SetHandler(Handler)

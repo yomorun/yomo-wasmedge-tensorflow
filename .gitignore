@@ -19,3 +19,4 @@
 *.pb
 *.tflite
 target
+.DS_Store

@@ -30,11 +30,8 @@ $ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
 ```bash
 $ go install github.com/yomorun/cli/yomo@latest
 $ yomo version
-YoMo CLI version: v0.1.3
+YoMo CLI version: v1.0.2
 ```
-
-Or, you can download the pre-built binary tarball [yomo-v0.1.3-x86_64-linux.tar.gz](https://github.com/yomorun/cli/releases/tag/v0.1.3).
-
 Details about `YoMo CLI` installation can be found [here](https://github.com/yomorun/yomo).
 
 ### 3. Install WasmEdge Dependencies
@@ -81,7 +78,7 @@ $ wget -P flow 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/dow
 
 ```bash
 $ cd flow
-$ go run --tags "tensorflow image" app.go
+$ go run -tags tensorflow,image app.go
 ```
 
 ### 7. Demonstrate video stream

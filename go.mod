@@ -7,5 +7,5 @@ require (
 	github.com/second-state/WasmEdge-go v0.9.2
 	github.com/second-state/wasmedge-bindgen v0.1.12
 	github.com/u2takey/ffmpeg-go v0.3.0
-	github.com/yomorun/yomo v1.5.3
+	github.com/yomorun/yomo v1.7.2
 )
