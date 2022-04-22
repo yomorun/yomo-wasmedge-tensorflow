@@ -62,12 +62,6 @@ $ cd flow
 $ go get -u github.com/second-state/WasmEdge-go/wasmedge
 ```
 
-Download pre-trained TensorflowLitee model: [rust_mobilenet_food_lib_bg.so](https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/rust_mobilenet_food_lib_bg.so), store to `flow` directory:
-
-```bash
-$ wget -P flow 'https://github.com/yomorun/yomo-wasmedge-tensorflow/releases/download/v0.2.0/rust_mobilenet_food_lib_bg.so'
-```
-
 ### 5. Run YoMo Orchestrator Server
 
 ```bash
