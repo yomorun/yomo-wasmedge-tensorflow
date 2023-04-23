@@ -4,8 +4,8 @@ go 1.16
 
 require (
 	github.com/disintegration/imaging v1.6.2
-	github.com/second-state/WasmEdge-go v0.9.2
-	github.com/second-state/wasmedge-bindgen v0.1.12
-	github.com/u2takey/ffmpeg-go v0.3.0
-	github.com/yomorun/yomo v1.7.2
+	github.com/second-state/WasmEdge-go v0.11.2
+	github.com/second-state/wasmedge-bindgen v0.4.1
+	github.com/u2takey/ffmpeg-go v0.4.1
+	github.com/yomorun/yomo v1.12.2
 )

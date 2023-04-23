@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strconv"
 	"time"
@@ -25,12 +24,12 @@ func main() {
 	filePath := os.Args[1]
 
 	// connect to yomo-zipper.
-	source := yomo.NewSource("image-recognition-source", yomo.WithZipperAddr("localhost:9900"))
+	source := yomo.NewSource("image-recognition-source", "localhost:9900")
 	defer source.Close()
 
 	err := source.Connect()
 	if err != nil {
-		log.Printf("❌ Emit the data to yomo-zipper failure with err: %v", err)
+		fmt.Printf("❌ Emit the data to yomo-zipper failure with err: %v\n", err)
 		return
 	}
 
@@ -42,16 +41,21 @@ func loadVideoAndSendData(source yomo.Source, filePath string) {
 	send := func(id int, img []byte) {
 		_, err := source.Write(img)
 		if err != nil {
-			log.Printf("❌ Send image-%v of %s to yomo-zipper failure with err: %v", id, filePath, err)
+			fmt.Printf("❌ Send image-%v of %s to yomo-zipper failure with err: %v\n", id, filePath, err)
 		} else {
-			log.Printf("✅ Send image-frame-%v of %s to yomo-zipper, hash=%s, img_size=%v", id, filePath, genSha1(img), len(img))
+			fmt.Printf("✅ Send image-frame-%v of %s to yomo-zipper, hash=%s, img_size=%v\n", id, filePath, genSha1(img), len(img))
 		}
 		time.Sleep(1 * time.Millisecond)
 	}
 
 	// load video and convert to images
 	video := VideoImage{}
-	num, _ := video.GetFrameCount(filePath)
+	num, err := video.GetFrameCount(filePath)
+	if err != nil {
+		fmt.Printf("❌ get frame count from %s err: %v", filePath, err)
+		return
+	}
+	fmt.Printf("total %d image frames\n", num)
 	ffStream := ffmpeg.Input(filePath)
 	for i := 0; i < num; i++ {
 		if i%24 == 0 {
@@ -105,9 +109,12 @@ func (v *VideoImage) extractImage(stream *ffmpeg.Stream, frameNum int) io.Reader
 }
 
 func (v *VideoImage) GetFrameCount(inFileName string) (int, error) {
-	data, _ := ffmpeg.Probe(inFileName)
+	data, err := ffmpeg.Probe(inFileName)
+	if err != nil {
+		return 0, err
+	}
 	var m map[string]interface{}
-	err := json.Unmarshal([]byte(data), &m)
+	err = json.Unmarshal([]byte(data), &m)
 	if err != nil {
 		return 0, err
 	}
