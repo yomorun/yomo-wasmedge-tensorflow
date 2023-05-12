@@ -70,7 +70,7 @@ WasmEdge-tensorflow提供了一个例子
 
 - 下载训练好的模型文件
   [lite-model_aiy_vision_classifier_food_V1_1.tflite](https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite)，并放置在目录
-  `rust_mobilenet_foods/src` 中：
+  `rust_mobilenet_food/src` 中：
 
   ```bash
   $ wget 'https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite' -O ./rust_mobilenet_food/src/lite-model_aiy_vision_classifier_food_V1_1.tflite
@@ -92,15 +92,24 @@ WasmEdge-tensorflow提供了一个例子
 
 - 编译 wasm 文件
 
-  ```
+  ```bash
+  $ cd rust_mobilenet_food
   $ cargo build --release --target wasm32-wasi
   # The output WASM will be `target/wasm32-wasi/release/rust_mobilenet_food_lib.wasm`.
+  $ cd ..
   ```
 
-- 拷贝`rust_mobilenet_food_lib_bg.wasm`到`flow`目录：
+- 拷贝编译好的 wasm 文件
 
   ```bash
-  $ cp target/wasm32-wasi/release/rust_mobilenet_food_lib_bg.wasm ../
+  $ cp rust_mobilenet_food/target/wasm32-wasi/release/rust_mobilenet_food_lib.wasm .
+  ```
+
+- _可选_: 将 wasm文件编译为
+  [AOT 模式](https://wasmedge.org/book/en/quick_start/run_in_aot_mode.html)
+
+  ```bash
+  wasmedgec rust_mobilenet_food_lib.wasm rust_mobilenet_food_lib.so
   ```
 
 ### 5. 运行YoMo Zipper服务器

@@ -130,8 +130,21 @@ func initVM() (*WasmObj, error) {
 		return nil, err
 	}
 
+	filename := "rust_mobilenet_food_lib"
+	ok := false
+	for _, suffix := range []string{".so", ".wasm"} {
+		if _, err := os.Stat(filename + suffix); err == nil {
+			filename += suffix
+			ok = true
+			break
+		}
+	}
+	if !ok {
+		return nil, fmt.Errorf("cannot find model file %s[.so|.wasm]", filename)
+	}
+
 	/// Instantiate wasm
-	err = vm.LoadWasmFile("rust_mobilenet_food_lib.wasm")
+	err = vm.LoadWasmFile(filename)
 	if err != nil {
 		return nil, err
 	}

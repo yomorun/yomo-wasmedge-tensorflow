@@ -83,7 +83,7 @@ to integrate `WasmEdge-tensorflow`:
 
 - download the pretrained model file
   [lite-model_aiy_vision_classifier_food_V1_1.tflite](https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite)，and
-  store to `rust_mobilenet_foods/src` directory:
+  store to `rust_mobilenet_food/src` directory:
 
   ```bash
   $ wget 'https://storage.googleapis.com/tfhub-lite-models/google/lite-model/aiy/vision/classifier/food_V1/1.tflite' -O ./rust_mobilenet_food/src/lite-model_aiy_vision_classifier_food_V1_1.tflite
@@ -105,15 +105,24 @@ to integrate `WasmEdge-tensorflow`:
 
 - compile wasm file
 
-  ```
+  ```bash
+  $ cd rust_mobilenet_food
   $ cargo build --release --target wasm32-wasi
   # The output WASM will be `target/wasm32-wasi/release/rust_mobilenet_food_lib.wasm`.
+  $ cd ..
   ```
 
-- copy `rust_mobilenet_food_lib_bg.wasm` to `flow` directory:
+- copy the compiled wasm file
 
   ```bash
-  $ cp target/wasm32-wasi/release/rust_mobilenet_food_lib_bg.wasm ../
+  $ cp rust_mobilenet_food/target/wasm32-wasi/release/rust_mobilenet_food_lib.wasm .
+  ```
+
+- _optional_: compile wasm file to
+  [AOT mode](https://wasmedge.org/book/en/quick_start/run_in_aot_mode.html)
+
+  ```bash
+  wasmedgec rust_mobilenet_food_lib.wasm rust_mobilenet_food_lib.so
   ```
 
 ### 5. Run YoMo Zipper Server
