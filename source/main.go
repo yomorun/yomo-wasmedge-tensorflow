@@ -11,10 +11,8 @@ import (
 	"time"
 
 	"github.com/disintegration/imaging"
-
-	"github.com/yomorun/yomo"
-
 	ffmpeg "github.com/u2takey/ffmpeg-go"
+	"github.com/yomorun/yomo"
 )
 
 const ImageDataKey = 0x10
@@ -33,13 +31,12 @@ func main() {
 		return
 	}
 
-	source.SetDataTag(ImageDataKey)
 	loadVideoAndSendData(source, filePath)
 }
 
 func loadVideoAndSendData(source yomo.Source, filePath string) {
 	send := func(id int, img []byte) {
-		_, err := source.Write(img)
+		err := source.Write(ImageDataKey, img)
 		if err != nil {
 			fmt.Printf("❌ Send image-%v of %s to yomo-zipper failure with err: %v\n", id, filePath, err)
 		} else {

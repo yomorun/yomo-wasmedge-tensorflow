@@ -1,7 +1,7 @@
 use std::time::Instant;
-use wasmedge_tensorflow_interface;
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
+use wasmedge_tensorflow_interface;
 
 #[wasmedge_bindgen]
 pub fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
@@ -13,9 +13,13 @@ pub fn infer(image_data: Vec<u8>) -> Result<Vec<u8>, String> {
     let flat_img = wasmedge_tensorflow_interface::load_jpg_image_to_rgb8(&image_data[..], 192, 192);
     println!("RUST: Loaded image in ... {:?}", start.elapsed());
 
-    let mut session = wasmedge_tensorflow_interface::Session::new(&model_data, wasmedge_tensorflow_interface::ModelType::TensorFlowLite);
-    session.add_input("input", &flat_img, &[1, 192, 192, 3])
-           .run();
+    let mut session = wasmedge_tensorflow_interface::Session::new(
+        &model_data,
+        wasmedge_tensorflow_interface::ModelType::TensorFlowLite,
+    );
+    session
+        .add_input("input", &flat_img, &[1, 192, 192, 3])
+        .run();
     let res_vec: Vec<u8> = session.get_output("MobilenetV1/Predictions/Softmax");
 
     let mut i = 0;

@@ -31,15 +31,11 @@ $ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
 
 ```bash
 $ curl -fsSL "https://get.yomo.run" | sh
-```
-
-执行下面的命令，确保yomo已经在环境变量中，有任何问题请参考
-[YoMo 的详细文档](https://github.com/yomorun/yomo)
-
-```bash
 $ yomo version
-YoMo CLI version: v1.12.2
+YoMo CLI version: v1.13.0
 ```
+
+更多YoMo相关问题可参考[YoMo文档](https://yomo.run/docs)
 
 ### 3. 安装 WasmEdge 及相关依赖
 

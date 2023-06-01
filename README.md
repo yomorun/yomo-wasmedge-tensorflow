@@ -43,11 +43,11 @@ $ git clone https://github.com/yomorun/yomo-wasmedge-tensorflow.git
 ```bash
 $ curl -fsSL "https://get.yomo.run" | sh
 $ yomo version
-YoMo CLI version: v1.12.2
+YoMo CLI version: v1.13.0
 ```
 
 Details about `YoMo CLI` installation can be found
-[here](https://github.com/yomorun/yomo).
+[here](https://yomo.run/docs).
 
 ### 3. Install WasmEdge Dependencies
 

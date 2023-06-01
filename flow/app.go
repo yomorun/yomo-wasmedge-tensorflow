@@ -10,7 +10,7 @@ import (
 	"github.com/second-state/WasmEdge-go/wasmedge"
 	bindgen "github.com/second-state/wasmedge-bindgen/host/go"
 	"github.com/yomorun/yomo"
-	"github.com/yomorun/yomo/core/frame"
+	"github.com/yomorun/yomo/serverless"
 )
 
 var (
@@ -24,12 +24,11 @@ const (
 
 func main() {
 	// Connect to Zipper service
-	sfn := yomo.NewStreamFunction(
-		"image-recognition",
-		"localhost:9900",
-		yomo.WithObserveDataTags(ImageDataKey),
-	)
+	sfn := yomo.NewStreamFunction("image-recognition", "localhost:9900")
 	defer sfn.Close()
+
+	// observe 0x10 data
+	sfn.SetObserveDataTags(ImageDataKey)
 
 	// set handler
 	sfn.SetHandler(Handler)
@@ -59,15 +58,16 @@ func (w *WasmObj) Release() {
 }
 
 // Handler process the data in the stream
-func Handler(img []byte) (frame.Tag, []byte) {
+func Handler(ctx serverless.Context) {
 	// Initialize WasmEdge's VM
 	w, err := initVM()
 	if err != nil {
 		fmt.Printf("wasmedge init failed: %v\n", err)
-		return 0, nil
+		return
 	}
 	defer w.Release()
 
+	img := ctx.Data()
 	bg := bindgen.New(w.vm)
 
 	// recognize the image
@@ -82,7 +82,8 @@ func Handler(img []byte) (frame.Tag, []byte) {
 	hash := genSha1(img)
 	log.Printf("✅ received image-%d hash %v, img_size=%d \n", atomic.AddUint64(&counter, 1), hash, len(img))
 
-	return InferenceResultKey, []byte(hash)
+	// send the inference result to YoMo Zipper
+	ctx.Write(InferenceResultKey, []byte(hash))
 }
 
 // genSha1 generate the hash value of the image
