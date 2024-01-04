@@ -40,7 +40,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	select {}
+	sfn.Wait()
 }
 
 type WasmObj struct {
